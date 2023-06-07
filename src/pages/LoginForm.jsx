@@ -31,10 +31,15 @@ export default function LoginForm(props) {
     }
   }
 
-  function onSubmit(data) {
+  async function onSubmit(data) {
     const { email, senha } = data;
-    handleLogin(email, senha)
-    navigate("/")
+    setErrorLogin("")
+    try {
+      await handleLogin(email, senha)
+      navigate("/")
+    }catch(error){
+      setErrorLogin(error.message)
+    }
   }
 
   return (
