@@ -1,17 +1,16 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
-import { listaTarefas, removeTarefa } from '../services/TaskService'
+import TaskContext from '../contexts/TaskContext'
 
 export default function HomeList() {
-  const [tarefas, setTarefas] = useState([])
+ const {tarefas, listaTarefas, removeTarefa} = useContext(TaskContext) 
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
     async function carrega() {
       setLoading(true)
-      const data = await listaTarefas()
-      setTarefas(data)
+      await listaTarefas()
       setLoading(false)
     }
     carrega()
